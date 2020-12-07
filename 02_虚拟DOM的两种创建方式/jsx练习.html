@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsx练习</title>
+</head>
+<body>
+    <div id="app"></div>
+
+</body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="../lib/babel.min.js"></script>
+
+
+    <script type="text/babel"> //使用jsx语法创建
+        //准备数据
+        let data = ['Angular','React','Vue','jQuery']
+        //创建虚拟DOM
+        let vDOM = (
+            <div>
+                <h2>前端js框架列表</h2>  
+                <ul>
+                    {
+                        data.map((item)=>{ //jsx仅支持js语句
+                            return <li>{item}</li> //将data加工成li标签的形式
+                        })
+                    }    
+                </ul>  
+            </div>
+        )
+        //渲染虚拟DOM到页面
+        ReactDOM.render(vDOM,document.getElementById('app'))
+    </script>
+</html>

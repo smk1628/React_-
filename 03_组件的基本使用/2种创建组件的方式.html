@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+</head>
+<body>
+    <div id="container1"></div>
+    <div id="container2"></div>
+</body>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+    <script src="../lib/babel.min.js"></script>
+
+
+    <script type="text/babel">
+        //第一种定义组件的方式：使用工厂函数创建组件
+        function Mycomponent(){
+            return <h3>Mycomponent组件（简单组件的创建方式）</h3>
+        }
+        // 如果渲染标签时，首字母小写，尝试寻找与html与之对应的标签进行渲染，如未找到报错
+        // 如果渲染标签时，首字母大写，尝试寻找组件是否定义
+        ReactDOM.render(<Mycomponent/>,document.getElementById('container1'))
+    </script>
+
+    <script type="text/babel">
+        //第二种定义组件的方式：使用es6的类创建组件
+        class Mycomponent2 extends React.Component {
+            /* constructor(a){
+                super(a)
+            } */
+            render(){
+                return <h3>Mycomponent2组件（复杂组件的创建方式）</h3>
+            }
+        }
+        ReactDOM.render(<Mycomponent2/>,document.getElementById('container2'))
+    </script>
+</html>
