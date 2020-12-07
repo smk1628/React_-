@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class App extends React.Component {
+        state = {toDoArr:['吃饭','睡觉','学习']}
+        addState = (data)=>{
+            let {toDoArr} = this.state
+            toDoArr.unshift(data)
+            this.setState({toDoArr})
+        }
+        render(){
+            let {toDoArr} = this.state
+            return (
+                <div>
+                    <h1>Simple todo list</h1>
+                    <Add addState = {this.addState} sumNum = {toDoArr.length}/>
+                    <Todolist toDoArr = {toDoArr}/>
+                </div>
+            )
+        }
+    }
+    class Add extends React.Component {
+        add = ()=>{
+            //获取用户输入
+            let userInput = this.input.value
+            //校验数据
+            if(userInput.trim() === '') return
+            //将用户输入添加到状态
+            this.props.addState(userInput)
+            //清空输入框
+            this.input.value = ''
+        }
+        render(){
+            let {sumNum} = this.props
+            return ( 
+                <div>
+                    <input type="text"  ref = {input => this.input = input}/> 
+                    <button onClick={this.add}>Add #{sumNum}</button>   
+                </div>
+            )
+        }
+    }
+    class Todolist extends React.Component {
+        render(){
+            let {toDoArr} = this.props
+            return (
+                <div>
+                    <ul>
+                        {   
+                            toDoArr.map((item,index) => <li key={index}>{item}</li>)
+                        }
+                    </ul>    
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById('container'))
+</script>
+</html>
