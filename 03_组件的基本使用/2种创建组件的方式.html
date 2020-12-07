@@ -26,13 +26,21 @@
     </script>
 
     <script type="text/babel">
+        function Haha(){
+            return <h4>haha</h4>
+        }
         //第二种定义组件的方式：使用es6的类创建组件
         class Mycomponent2 extends React.Component {
             /* constructor(a){
                 super(a)
             } */
             render(){
-                return <h3>Mycomponent2组件（复杂组件的创建方式）</h3>
+                return (
+                    <div>
+                        <h3>Mycomponent2组件（复杂组件的创建方式）</h3>
+                        <Haha/>
+                    </div>
+                )
             }
         }
         ReactDOM.render(<Mycomponent2/>,document.getElementById('container2'))
