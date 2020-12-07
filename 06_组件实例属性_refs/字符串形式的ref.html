@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串形式的ref</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class MyComponent extends React.Component {
+        clickHandel = ()=>{
+            alert(this.refs.input1.value)
+        }
+        blurHandel = (event)=>{ //不通过ref获取节点
+            alert(event.target.value)
+        }
+        render(){
+            return(
+                <div>
+                    <input type="text" ref='input1'/>  {/* 通过ref进行事件处理 */}
+                    <button onClick = {this.clickHandel}>点我提示数据</button>   
+                    <input type="text" placeholder='失去焦点提示' onBlur={this.blurHandel}/>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<MyComponent/>,document.getElementById('app'))
+</script>
+</html>

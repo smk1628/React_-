@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props</title>
+</head>
+<body>
+    <div id="container1"></div>
+    <div id="container2"></div>
+    <div id="container3"></div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.7.2/prop-types.js"></script>
+
+<script type="text/babel">
+    //1.创建Person组件
+    class Person extends React.Component {
+        static propsTypes = {   //限制标签传递属性的必要性
+            name:PropTypes.string.isRequired,
+            sex:PropTypes.string,
+            age:PropTypes.number
+        }
+        static defaultProps = { //指定默认值
+            name:'smk',
+            sex:'男',
+            age:18
+        }
+        render(){
+            let {name,sex,age} = this.props
+            return(
+                <ul>
+                    <li>姓名：{name}</li>    
+                    <li>性别：{sex}</li>    
+                    <li>年龄：{age}</li>    
+                </ul>
+            )
+        }
+    }
+    ReactDOM.render(<Person name='lili' sex='女' age={20}/>,document.getElementById('container1'))
+    ReactDOM.render(<Person name='xiaoming'/>,document.getElementById('container2'))
+    //使用...运算符简化传参
+    let person = {name:'zhangsan',sex:'男',age:20} //模拟数据
+    //console.log({...person} === person) //false   ...可以直接展开数组...arr，而对有{}包裹的对象形式es8新语法里则直接复制一个新对象{...object}
+    ReactDOM.render(<Person {...person}/>,document.getElementById('container3')) //这里{...person} 是react+babel进行处理的
+</script>
+</html>

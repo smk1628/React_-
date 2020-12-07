@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回调形式的ref</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class MyComponent extends React.Component {
+        myRef = React.createRef() //调用React.createRef创建流一个用于保存ref的容器，该容器只能保存一个ref
+        clickHandel = ()=>{
+            //console.log(this.myRef) // {current: input} object
+            alert(this.myRef.current.value)
+        }
+        blurHandel = (event)=>{
+            alert(event.target.value) 
+        }
+        render(){
+            return(
+                <div>
+                    <input type="text" ref={this.myRef} /> 
+                    <button onClick = {this.clickHandel}>点我提示数据</button>   
+                    <input type="text" placeholder='失去焦点提示' onBlur={this.blurHandel}/>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<MyComponent/>,document.getElementById('app'))
+</script>
+</html>

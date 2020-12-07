@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回调形式的ref</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class MyComponent extends React.Component {
+        clickHandel = ()=>{
+            alert(this.input.value)
+        }
+        blurHandel = (event)=>{
+            alert(event.target.value) 
+        }
+        render(){
+            return(
+                <div>
+                     {
+                         /* *
+                          * 1.通过回调形式的ref进行事件处理 this指向MyComponent实例对象 
+                          * 2.将ref所在的节点作为参数传给input形参
+                          * 3.然后再将input赋值与到this所在实例对象所追加的input属性上
+                         */
+                        }
+                    <input type="text" ref={input => this.input = input} /> 
+                    <button onClick = {this.clickHandel}>点我提示数据</button>   
+                    <input type="text" placeholder='失去焦点提示' onBlur={this.blurHandel}/>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<MyComponent/>,document.getElementById('app'))
+</script>
+</html>
