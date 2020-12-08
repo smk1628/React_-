@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命周期(新)</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class App extends React.Component{
+        state = {
+            data:[]
+        }
+        static getDerivedStateFromProps(props,state){ //getDerivedStateFromProps()钩子取代componentWillMount、componentWillUpdate
+            let {data} = state
+            data.unshift(props.timeDate)
+            //console.log(props,data)
+            console.log('---getDerivedStateFromProps()---',props,state)
+            return {data}    //将组件传来的props参数维护到state状态里
+        }
+        
+        getSnapshotBeforeUpdate(props,state){ //和componentDidUpdate配合使用
+            console.log('---getSnapshotBeforeUpdate()---')
+            return 'peiqi'  
+        }
+        componentDidUpdate(props,state,data){
+            console.log('---componentDidUpdate()---',props,state,data)
+            //console.log(this)   //this中的__reactInternalSnapshotBeforeUpdate: 'peiqi'
+        }
+        componentDidMount(){
+            let {data} = this.state
+            console.log('---componentDidMount()---')
+            setTimeout(() => {
+                let temp = (new Date()).toLocaleString();
+                data = []
+                data.push(`${temp}`)
+                this.setState({data})
+            }, 1000);
+        }
+        render(){
+            console.log('--render()--')
+            let {data} = this.state
+            return(
+                <div>
+                    <ul>
+                       {
+                        data.map((item,index) => <li style={{listStyle:'none'}} key={index}>{item}</li>)
+                       }
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<App timeDate={"Now:"}/>,document.getElementById('container'))
+</script>
+
+</html>

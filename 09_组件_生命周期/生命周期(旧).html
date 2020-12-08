@@ -17,7 +17,10 @@
         state = { //this.state
             opacity:1
         }
-        componentDidMount(){
+        // componentWillMount(){
+        //     console.log('componentWillMount()')
+        // }
+        componentDidMount(){    //render构建界面后执行
             this.timeID = setInterval(()=>{
                let {opacity} = this.state
                 if(opacity <= 0){
@@ -28,9 +31,15 @@
                 this.setState({opacity})
             },200)
         }
-        death = ()=>{
+        // componentWillUpdate(){
+        //     console.log('componentWillUpdate()')
+        // }
+        componentWillUnmount(){ //在ComponentWillUnmount做收尾工作
             clearInterval(this.timeID)
-            ReactDOM.unmountComponentAtNode(document.getElementById('container'))  
+        }
+        death = ()=>{
+            //clearInterval(this.timeID)
+            ReactDOM.unmountComponentAtNode(document.getElementById('container'))  //卸载组件
         }
         render(){
             return (
@@ -41,6 +50,6 @@
             )
         }
     }
-    ReactDOM.render(<Life/>,document.getElementById('container'))
+    ReactDOM.render(<Life/>,document.getElementById('container')) //加载组件
 </script>
 </html>
