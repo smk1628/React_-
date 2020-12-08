@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>受控组件和非受控组件</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class Login extends React.Component {
+        submitHandel = (event)=>{
+            event.preventDefault()
+            if(this.state === null || this.refs === null) return
+            alert(`用户名：${this.refs.usernameDOM.value}    密码：${this.state.password}`)
+        }
+        onChangeHandel = (event)=>{
+            //console.log(event.target.value)
+            
+            this.setState({password:event.target.value}) //受控 非受控 看组件是否自动维护到状态中【state】
+        }
+        render(){
+            return (
+                <form action="http://www.baidu.com" onSubmit={this.submitHandel}>
+                    <input type="text" ref='usernameDOM'/>
+                    <input type="password" onChange = {this.onChangeHandel}/>
+                    <button>登录</button>    
+                </form>
+            )
+        }
+    }
+    ReactDOM.render(<Login/>,document.getElementById('container'))
+</script>
+</html>
