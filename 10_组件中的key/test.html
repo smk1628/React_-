@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件中的key</title>
+</head>
+<body>
+   <div id="container"> </div> 
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/react/17.0.1/umd/react.development.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.1/umd/react-dom.development.js"></script>
+<script src="../lib/babel.min.js"></script>
+
+<script type="text/babel">
+    class AddPerson extends React.Component{
+        state = {
+            person:[
+                {id:1,name:'张三'},
+                {id:2,name:'李四'}
+            ]
+        }
+        add = ()=>{
+            let {person} = this.state
+            person.unshift({id:person.length+1,name:'王五'})
+            this.setState(person)
+        }
+        render(){
+            let {person} = this.state
+            return(
+                <div>
+                    <button onClick={this.add}>添加Person</button>
+                    <ul>
+                          {
+                            person.map((item,index)=>{
+                              return <li key={index}>{item.name}<input/></li>
+                          })  
+                          }
+                    </ul>   
+                    <ul>
+                          {
+                            person.map((item)=>{ //diff算法通过key对比改动的元素，然后局部更新，如果用index作为key，则key会随着数组的变化而做出改变，干扰到diff算法
+                              return <li key={item.id}>{item.name}<input/></li>
+                          })  
+                          }
+                    </ul>    
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<AddPerson/>,document.getElementById('container'))
+</script>
+</html>
